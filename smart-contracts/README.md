@@ -1,66 +1,9 @@
-## Foundry
+## Urban Crypts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+### Smart Contracts (Mumbai Testnet)
 
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+Glass Token: 0x3298A5e7e7C570911bF59410dc4bcE8095F93DF8
+Can Token: 0xEAb0fAD6Ea6b39d8C673F9B6293d0046f718fCf1
+Plastic Bottle Token: 0x2836CE10c953E4Ad5f77FEe956db1531E2423A77
+Generic Plastic Token: 0xe014E95ee5cd3e62471F067732F94888Bad59121
+Collector: 0x819110F8e51d2B45Dd4c380b0C962088cbCF5ed0
