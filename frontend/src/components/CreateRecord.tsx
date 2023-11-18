@@ -1,17 +1,15 @@
 import { Button } from 'flowbite-react';
 import { Dropzone } from './Dropzone';
 
-export const CreateQuote = ({
+export const CreateRecord = ({
   files,
   handleFileChange,
   handleRemoveImage,
-  handleSubmit,
   submitDisabled,
 }: {
   files: File[] | null;
   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoveImage: (index: number) => void;
-  handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
   submitDisabled: boolean;
 }) => {
   return (
@@ -54,9 +52,8 @@ export const CreateQuote = ({
         type='submit'
         disabled={submitDisabled}
         aria-disabled={submitDisabled}
-        onClick={handleSubmit}
       >
-        Submit for quoting
+        Submit Record
       </Button>
     </>
   );

@@ -40,8 +40,9 @@ export const Dropzone = ({
           id='dropzone-file'
           type='file'
           multiple
-          accept="image/*"
+          accept='image/*'
           className='hidden'
+          name={name}
         />
       </label>
     </div>
