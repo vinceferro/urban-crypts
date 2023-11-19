@@ -25,7 +25,13 @@ export default function RootLayout({
             </Navbar.Brand>
             <div className='flex md:order-2'>
               <ConnectButton />
+              <Navbar.Toggle />
             </div>
+            <Navbar.Collapse>
+              <Navbar.Link href='/'>Create new record</Navbar.Link>
+              <Navbar.Link href='/profile'>Profile</Navbar.Link>
+              <Navbar.Link href='/records'>Records</Navbar.Link>
+            </Navbar.Collapse>
           </Navbar>
 
           {children}
