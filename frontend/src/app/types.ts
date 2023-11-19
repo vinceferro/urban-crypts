@@ -15,3 +15,15 @@ export interface RecordFormState {
   record?: Record;
   recordMetadataIpfsCID?: string;
 }
+
+export enum OnChainRecordStatus {
+  PENDING = 0,
+  REJECTED = 1,
+  APPROVED = 2,
+}
+
+export interface OnChainRecord {
+  status: OnChainRecordStatus;
+  timestamp: BigInt;
+  metadataLink: string;
+}
