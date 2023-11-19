@@ -20,6 +20,10 @@ contract Collector is AccessControl {
         _grantRole(CONTROLLER, defaultAdmin);
     }
 
+    function getRecordsByAddress(address _address) external view returns(Record[] memory) {
+        return recordsByAddress[_address];
+    }
+
     function publishRecord(string calldata _metadataLink) external returns(uint256) {
         recordsByAddress[msg.sender].push(
             Record({
@@ -29,9 +33,10 @@ contract Collector is AccessControl {
             })
         );
 
-        emit RecordPublished(msg.sender, _metadataLink);
+        uint256 index = recordsByAddress[msg.sender].length - 1;
+        emit RecordPublished(msg.sender, index, _metadataLink);
 
-        return recordsByAddress[msg.sender].length - 1;
+        return index;
     }
 
     function approveRecord(address _address, uint256 _index, UrbanCryptToken[] calldata _tokens, uint256[] calldata _rewards) external onlyRole(CONTROLLER) {
@@ -61,7 +66,7 @@ contract Collector is AccessControl {
         emit RecordRejected(_address, _index, _reason);
     }
 
-    event RecordPublished(address indexed _address, string _metadataLink);
+    event RecordPublished(address indexed _address, uint256 indexed _index, string _metadataLink);
     event RecordApproved(address indexed _address, uint256 indexed _index, UrbanCryptToken[] _tokens, uint256[] _rewards);
     event RecordRejected(address indexed _address, uint256 indexed _index, string _reason);
 
