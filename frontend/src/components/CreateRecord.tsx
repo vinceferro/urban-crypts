@@ -14,6 +14,13 @@ export const CreateRecord = ({
 }) => {
   return (
     <>
+      <h1 className='text-2xl font-bold text-gray-900 dark:text-gray-100'>
+        Create a new record
+      </h1>
+      <p className='text-gray-500 dark:text-gray-400'>
+        Upload your pictures to IPFS. We&apos;ll generate the metadata for you.
+      </p>
+
       <Dropzone onChange={handleFileChange} name='files' />
 
       <div className='mt-8 flex flex-wrap justify-center gap-4'>

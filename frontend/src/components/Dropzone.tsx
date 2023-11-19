@@ -32,7 +32,7 @@ export const Dropzone = ({
             drop
           </p>
           <p className='text-xs text-gray-500 dark:text-gray-400'>
-            PNG, or JPG up to 10MB
+            PNG, WebP or JPG up to 10MB
           </p>
         </div>
         <input

@@ -5,7 +5,6 @@ import { useRecoilValue } from 'recoil';
 import { accountState } from '@/state/accountState';
 import { createRecord } from './actions/createRecord';
 import { useFormState, useFormStatus } from 'react-dom';
-import { Button } from 'flowbite-react';
 import { RecordFormStatus } from './types';
 import { CreateRecord } from '@/components/CreateRecord';
 import Collector from '@/abis/Collector.json';
@@ -14,6 +13,7 @@ import { CreateTransaction } from '@/components/CreateTransaction';
 import { FollowTransaction } from '@/components/FollowTransaction';
 import { TransactionSucceeded } from '@/components/TransactionSucceeded';
 import { TransactionFailed } from '@/components/TransactionFailed';
+import { COLLECTOR_ADDRESS } from '@/constants';
 
 export default function Home() {
   const [state, formAction] = useFormState(createRecord, {
@@ -41,12 +41,11 @@ export default function Home() {
 
   const signAndSend = async () => {
     state.status = RecordFormStatus.SIGNING;
-    const contractAddress = '0x819110F8e51d2B45Dd4c380b0C962088cbCF5ed0';
     const web3 = new Web3(window.ethereum || window.web3.currentProvider);
 
     const collector = new web3.eth.Contract(
       Collector.abi as any,
-      contractAddress
+      COLLECTOR_ADDRESS
     );
 
     collector.methods
