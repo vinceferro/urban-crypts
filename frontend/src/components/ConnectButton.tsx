@@ -1,15 +1,23 @@
 import React from 'react';
-import Web3 from 'web3';
-import { useRecoilState } from 'recoil';
-import { accountState } from '@/state/accountState';
 import { Button } from 'flowbite-react';
+import useConnectedAccount from '@/hooks/useConnectedAccount';
 
 const ConnectButton: React.FC = () => {
-  const [account, setAccount] = useRecoilState<string | null>(accountState);
+  const [account, setAccount] = useConnectedAccount();
+
+  const truncateString = (str: string, maxLength: number) => {
+    if (str.length <= maxLength) {
+      return str;
+    }
+
+    const startLength = Math.ceil((maxLength - 3) / 2);
+    const endLength = Math.floor((maxLength - 3) / 2);
+
+    return `${str.slice(0, startLength)}...${str.slice(-endLength)}`;
+  };
 
   const connectWallet = async () => {
     if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
       try {
         const accounts = await window.ethereum.request({
           method: 'eth_requestAccounts',
@@ -27,7 +35,7 @@ const ConnectButton: React.FC = () => {
 
   return (
     <Button onClick={connectWallet}>
-      {account ? `Connected: ${account}` : 'Connect Wallet'}
+      {account ? truncateString(account, 14) : 'Connect Wallet'}
     </Button>
   );
 };
