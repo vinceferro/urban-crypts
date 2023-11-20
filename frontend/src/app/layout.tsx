@@ -29,8 +29,8 @@ export default function RootLayout({
             </div>
             <Navbar.Collapse>
               <Navbar.Link href='/'>Create new record</Navbar.Link>
-              <Navbar.Link href='/profile'>Profile</Navbar.Link>
-              <Navbar.Link href='/records'>Records</Navbar.Link>
+              <Navbar.Link href='/records'>All Records</Navbar.Link>
+              <Navbar.Link href='/profile'>My Profile</Navbar.Link>
             </Navbar.Collapse>
           </Navbar>
 

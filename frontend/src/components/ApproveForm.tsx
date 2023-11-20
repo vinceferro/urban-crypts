@@ -113,10 +113,10 @@ export const ApproveForm = ({
             )
           }
           disabled={
-            !canToken ||
-            !genericPlasticToken ||
-            !plasticBottleToken ||
-            !glassToken
+            canToken === 0 &&
+            genericPlasticToken === 0 &&
+            plasticBottleToken === 0 &&
+            glassToken === 0
           }
         >
           Approve and Send Tokens

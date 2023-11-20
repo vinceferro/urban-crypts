@@ -11,9 +11,8 @@ interface IPFSResult {
 
 export const createRecord = async (
   previousState: RecordFormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<RecordFormState> => {
-
   const walletAddress = formData.get('walletAddress') as string;
   const files = formData.getAll('files') as File[];
 
@@ -26,24 +25,30 @@ export const createRecord = async (
 
   console.log(ipfsForm.getAll('file'));
 
-  const response = await axios.post<IPFSResult[]>('https://ipfs.infura.io:5001/api/v0/add?wrap-with-directory=true', ipfsForm, {
-    headers: {
-      'Authorization': 'Basic ' + process.env.IPFS_AUTH,
-    },
-    transformResponse: (data) => {
-      console.log(data);
-      try {
-        return data.split('\n').filter(Boolean).map(JSON.parse);
-      } catch (err) {
-        console.log(err);
-        throw Error('Failed to parse NDJSON response');
-      }
+  const response = await axios.post<IPFSResult[]>(
+    'https://ipfs.infura.io:5001/api/v0/add?wrap-with-directory=true',
+    ipfsForm,
+    {
+      headers: {
+        Authorization: 'Basic ' + process.env.IPFS_AUTH,
+      },
+      transformResponse: (data) => {
+        console.log(data);
+        try {
+          return data.split('\n').filter(Boolean).map(JSON.parse);
+        } catch (err) {
+          console.log(err);
+          throw Error('Failed to parse NDJSON response');
+        }
+      },
     }
-  });
+  );
 
   console.log(response.data);
 
-  const ipfsCIDs = response.data.map((file) => file.Hash);
+  const ipfsCIDs = response.data
+    .filter((value) => value.Name !== '')
+    .map((file) => file.Hash);
   console.log(ipfsCIDs);
 
   const record = {
@@ -53,12 +58,15 @@ export const createRecord = async (
 
   const ipfsForm2 = new FormData();
   ipfsForm2.append('file', JSON.stringify(record));
-  const response2 = await axios.post<IPFSResult>('https://ipfs.infura.io:5001/api/v0/add', ipfsForm2, {
-    headers: {
-      'Authorization': 'Basic ' + process.env.IPFS_AUTH,
-    },
-  });
-  
+  const response2 = await axios.post<IPFSResult>(
+    'https://ipfs.infura.io:5001/api/v0/add',
+    ipfsForm2,
+    {
+      headers: {
+        Authorization: 'Basic ' + process.env.IPFS_AUTH,
+      },
+    }
+  );
 
   return {
     status: RecordFormStatus.REVIEWING,
