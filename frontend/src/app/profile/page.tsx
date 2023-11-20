@@ -22,7 +22,6 @@ export default function Profile() {
   const [tokenBalances, setTokenBalances] = useState<BigInt[]>([]);
 
   useEffect(() => {
-    console.log(walletAddress);
     if (!walletAddress) return;
 
     const web3 = new Web3(window.ethereum || window.web3.currentProvider);
@@ -36,7 +35,7 @@ export default function Profile() {
       return await collector.methods.getRecordsByAddress(walletAddress).call();
     }
     getRecords().then((res) => {
-      setRecords(res);
+      setRecords(res.reverse());
     });
 
     async function getTokenBalance(address: string): Promise<BigInt> {

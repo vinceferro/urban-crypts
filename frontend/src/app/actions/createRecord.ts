@@ -16,14 +16,10 @@ export const createRecord = async (
   const walletAddress = formData.get('walletAddress') as string;
   const files = formData.getAll('files') as File[];
 
-  console.log(files);
-
   const ipfsForm = new FormData();
   files.forEach((file) => {
     ipfsForm.append('file', file);
   });
-
-  console.log(ipfsForm.getAll('file'));
 
   const response = await axios.post<IPFSResult[]>(
     'https://ipfs.infura.io:5001/api/v0/add?wrap-with-directory=true',
@@ -33,7 +29,6 @@ export const createRecord = async (
         Authorization: 'Basic ' + process.env.IPFS_AUTH,
       },
       transformResponse: (data) => {
-        console.log(data);
         try {
           return data.split('\n').filter(Boolean).map(JSON.parse);
         } catch (err) {
@@ -44,12 +39,9 @@ export const createRecord = async (
     }
   );
 
-  console.log(response.data);
-
   const ipfsCIDs = response.data
     .filter((value) => value.Name !== '')
     .map((file) => file.Hash);
-  console.log(ipfsCIDs);
 
   const record = {
     walletAddress,

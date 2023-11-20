@@ -14,7 +14,6 @@ export default function Profile() {
   const [records, setRecords] = useState<EventLog[]>([]);
 
   useEffect(() => {
-    console.log(walletAddress);
     if (!walletAddress) return;
 
     const web3 = new Web3(window.ethereum || window.web3.currentProvider);
@@ -25,18 +24,20 @@ export default function Profile() {
     );
 
     async function getRecords(): Promise<EventLog[]> {
-      return (
-        await collector.getPastEvents('RecordPublished', {
-          fromBlock: 0,
-        })
-      ).filter((event) => typeof event !== 'string');
+      const logs = await collector.getPastEvents('RecordPublished', {
+        fromBlock: 0,
+      });
+      return logs
+        .filter((log) => typeof log !== 'string')
+        .toSorted((a, b) =>
+          Number(b.blockNumber - a.blockNumber)
+        ) as EventLog[];
     }
-    getRecords().then((res) => {
+
+    getRecords().then((res: EventLog[]) => {
       setRecords(res);
     });
   }, [walletAddress]);
-
-  console.log(records);
 
   return (
     <div className='xs:p-12 flex w-full flex-col items-center justify-center gap-4 p-24'>

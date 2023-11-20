@@ -49,7 +49,6 @@ export default function RecordPage({ params }: { params: { record: string } }) {
     );
 
     const [address, index] = params.record.split('-');
-    console.log(collector);
 
     async function getRecord(
       address: string,
